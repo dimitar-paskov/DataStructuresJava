@@ -231,6 +231,7 @@ public class TheMatrix {
 				sb.append(matrix[i][j]);
 			}
 			sb.append("\r\n");
+			System.out.println();
 		}
 
 		return sb.toString().trim();
