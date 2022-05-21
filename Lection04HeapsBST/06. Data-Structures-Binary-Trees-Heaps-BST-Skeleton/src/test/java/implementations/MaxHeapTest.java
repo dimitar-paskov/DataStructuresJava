@@ -1,12 +1,14 @@
 package implementations;
 
-import interfaces.Heap;
+import static org.junit.Assert.assertEquals;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.*;
-
-import static org.junit.Assert.*;
+import interfaces.Heap;
 
 public class MaxHeapTest {
     private Heap<Integer> maxHeap;
@@ -35,6 +37,14 @@ public class MaxHeapTest {
     @Test
     public void testSizeShouldBeCorrect() {
         assertEquals(8, this.maxHeap.size());
+    }
+    
+    @Test
+    public void testPeek() {
+    	
+    	this.maxHeap.add(100);
+    	
+        assertEquals(Integer.valueOf(100), this.maxHeap.peek());
     }
 
 }
