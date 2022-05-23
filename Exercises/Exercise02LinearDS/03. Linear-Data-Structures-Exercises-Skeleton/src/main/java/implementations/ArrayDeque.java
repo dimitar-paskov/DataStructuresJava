@@ -8,13 +8,14 @@ public class ArrayDeque<E> implements Deque<E> {
 
 	private final int INITIAL_CAPACITY = 7;
 
-	private int size = 0;
-	private int startIndex = 0;
-	private int endIndex = 0;
+	private int size ;
+	private int startIndex ;
+	private int endIndex ;
 
 	private Object[] elements;
 
 	public ArrayDeque() {
+		this.size = 0;
 		this.elements = new Object[INITIAL_CAPACITY];
 		this.startIndex = this.elements.length-1;
 		this.endIndex = 0;
@@ -53,10 +54,6 @@ public class ArrayDeque<E> implements Deque<E> {
 	@Override
 	public void addFirst(E element) {
 
-		if (this.size == 0) {
-			startIndex = this.elements.length-1;
-			endIndex = 0;
-		}
 
 		if (this.size() == this.elements.length) {
 			grow();
@@ -74,11 +71,6 @@ public class ArrayDeque<E> implements Deque<E> {
 
 	@Override
 	public void addLast(E element) {
-
-		if (this.size == 0) {
-			startIndex = this.elements.length - 1;
-			endIndex = 0;
-		}
 
 		if (this.size() == this.elements.length) {
 			grow();
@@ -121,8 +113,12 @@ public class ArrayDeque<E> implements Deque<E> {
 				startIndex = this.elements.length - 1;
 			}
 
-			shiftLeft(index);
-			this.set(index + 1, element);
+			for (int i = 0; i <= index; i++) {
+
+				this.elements[getRealIndex(i)] = this.elements[getRealIndex(i + 1)];
+
+			}
+			this.set(index , element);
 
 		} else {
 			endIndex++;
@@ -131,38 +127,24 @@ public class ArrayDeque<E> implements Deque<E> {
 				endIndex = 0;
 			}
 
-			shiftRight(index);
-			this.set(index + 1, element);
+			for (int i = this.size; i > index; i--) {
+
+				this.elements[getRealIndex(i)] = this.elements[getRealIndex(i - 1)];
+
+			}
+			this.set(index, element);
 
 		}
 
 	}
 
-	private void shiftLeft(int index) {
 
-		for (int i = 0; i < index; i++) {
-
-			this.elements[getRealIndex(i)] = this.elements[getRealIndex(i + 1)];
-
-		}
-
-	}
-
-	private void shiftRight(int index) {
-
-		for (int i = this.size; i > index; i--) {
-
-			this.elements[getRealIndex(i)] = this.elements[getRealIndex(i - 1)];
-
-		}
-
-	}
 
 	private int getRealIndex(int index) {
 
 		int realIndex = this.startIndex + 1 + index;
 		if (realIndex >= this.elements.length) {
-			realIndex = realIndex - this.elements.length;
+			realIndex = realIndex % this.elements.length;
 		}
 
 		return realIndex;
@@ -180,11 +162,8 @@ public class ArrayDeque<E> implements Deque<E> {
 	public void set(int index, E element) {
 
 		ensureIndex(index);
-
-		int realIndex = startIndex + index;
-		if (realIndex >= this.elements.length) {
-			realIndex = realIndex - this.elements.length;
-		}
+		
+		int realIndex = getRealIndex(index);
 
 		this.elements[realIndex] = element;
 
@@ -363,7 +342,7 @@ public class ArrayDeque<E> implements Deque<E> {
 		}
 
 		startIndex = tmp.length - 1;
-		endIndex = this.size();
+		endIndex = 0;
 
 		this.elements = tmp;
 
@@ -379,7 +358,7 @@ public class ArrayDeque<E> implements Deque<E> {
 		return new Iterator<E>() {
 
 			int iterSize = 0;
-			int index = startIndex + 1;
+			int index = 0;
 
 			@Override
 			public boolean hasNext() {
@@ -394,13 +373,6 @@ public class ArrayDeque<E> implements Deque<E> {
 				int realIndex = getRealIndex(index++);
 				return getAt(realIndex);
 
-			}
-
-			private int getRealIndex(int indx) {
-				if (indx >= elements.length) {
-					indx = indx - elements.length;
-				}
-				return indx;
 			}
 
 		};
