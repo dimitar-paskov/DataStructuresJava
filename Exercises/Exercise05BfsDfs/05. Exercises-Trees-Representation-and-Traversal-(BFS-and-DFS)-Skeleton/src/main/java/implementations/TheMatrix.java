@@ -183,8 +183,8 @@ public class TheMatrix {
 			this.matrix[row][col] = this.fillChar;
 			
 			
-			System.out.println(this.toOutputString());
-			System.out.println();
+//			System.out.println(this.toOutputString());
+//			System.out.println();
 			
 			
 			if(isInBounds(row + 1, col) && this.matrix[row + 1][col] == this.toBeReplaced) {
@@ -230,7 +230,8 @@ public class TheMatrix {
 			for (int j = 0; j < matrix[i].length; j++) {
 				sb.append(matrix[i][j]);
 			}
-			sb.append("\r\n");
+//			sb.append("\r\n");
+			sb.append(System.lineSeparator());
 			System.out.println();
 		}
 

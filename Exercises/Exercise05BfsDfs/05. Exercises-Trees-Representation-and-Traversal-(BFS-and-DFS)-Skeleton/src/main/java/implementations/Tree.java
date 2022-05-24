@@ -125,7 +125,8 @@ public class Tree<E> implements AbstractTree<E> {
 
 	private void traverseTreeWithRecurrence(StringBuilder sb, int indent, Tree<E> tree) {
 
-		sb.append(getPadding(indent)).append(tree.getKey()).append("\r\n");
+//		sb.append(getPadding(indent)).append(tree.getKey()).append("\r\n");
+		sb.append(getPadding(indent)).append(tree.getKey()).append(System.lineSeparator());
 		for (Tree<E> child : tree.children) {
 			traverseTreeWithRecurrence(sb, indent + 2, child);
 		}
@@ -254,47 +255,36 @@ public class Tree<E> implements AbstractTree<E> {
 	public List<List<E>> pathsWithGivenSum(int sum) {
 		
 		List<List<E>> result = new ArrayList<>();
-		
-		findPathsWithGivenSum(sum,result );
+	
+		findPathsWithGivenSum(sum,result, this, 0 );
 		
 		return result;
 	}
 
-	private void findPathsWithGivenSum(int sum, List<List<E>> result) {
+	private void findPathsWithGivenSum(int sum, List<List<E>> result, Tree<E> node, int calculatedSum) {
 		
-		Deque<Tree<E>> queue = new ArrayDeque<>();
+		calculatedSum += (Integer)node.getKey();
 		
-		queue.offer(this);
-		
-		while(!queue.isEmpty()) {
+		if(calculatedSum == sum) {
+			List<E> entry = new ArrayList<>();
 			
-			Tree<E> current = queue.pop();
+			Tree<E> current = node;
 			
-			int sumCounted = 0;
-			
-			
-			Tree<E> currentToRoot = current;
-			while(currentToRoot != null) {
-				sumCounted += (Integer)currentToRoot.key;
-				currentToRoot = currentToRoot.parent;
+			while(current!= null) {
+				entry.add(current.key);
+				current = current.parent;
 			}
-			
-			if(sumCounted == sum) {
-				List<E> path = new ArrayList<>();
-				
-				currentToRoot = current;
-				while(currentToRoot != null) {
-					path.add(key);
-					currentToRoot = currentToRoot.parent;
-				}
-				
-				Collections.reverse(path);
-				result.add(path);
-				
-			}
-
+			Collections.reverse(entry);
+			result.add(entry); 
 		}
-
+		
+		
+		for (Tree<E> child : node.children) {
+			
+			findPathsWithGivenSum(sum,result, child, calculatedSum );
+			
+		}
+		
 	}
 
 
@@ -304,16 +294,29 @@ public class Tree<E> implements AbstractTree<E> {
 		
 		List<Tree<E>>result = new ArrayList<>();
 		
-		findSubtreesWithGivenSum(sum, result);
+		findSubtreesWithGivenSum(sum, result, this);
 		
 		
 		return result;
 	}
 
 
-	private void findSubtreesWithGivenSum(int sum, List<Tree<E>> result) {
+	private int findSubtreesWithGivenSum(int sum, List<Tree<E>> result, Tree<E> node) {
+		
+		int calculatedSum = (Integer)node.key;
+		
+
+		for (Tree<E> tree : node.children) {
+			calculatedSum += findSubtreesWithGivenSum(sum, result, tree);
+		}
+		
+		if(calculatedSum == sum) {
+			result.add(node);
+
+		}
 		
 		
-		
+		return calculatedSum;
+
 	}
 }

@@ -2,6 +2,7 @@ package implementations;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Deque;
 import java.util.List;
 
 import interfaces.AbstractTree;
@@ -37,7 +38,7 @@ public class Tree<E> implements AbstractTree<E> {
 			return result;
 		}
 		
-		ArrayDeque<Tree<E>> childrenQueue = new ArrayDeque<>();
+		Deque<Tree<E>> childrenQueue = new ArrayDeque<>();
 
 		childrenQueue.offer(this);
 
@@ -83,25 +84,20 @@ public class Tree<E> implements AbstractTree<E> {
 //    	Deque<Tree<E>> toTraverse = new ArrayDeque<>();
 //    	
 //    	toTraverse.push(this);
+//    	toTraverse.push(this);
 //    	
-//    	do {
+//    	while(!toTraverse.isEmpty()) {
 //    		
-//    		Tree<E> current = toTraverse.peek();
+//    		Tree<E> current = toTraverse.pop();
 //    		
-//    		
-//    		if(!current.children.isEmpty()) {
-//    			for (Tree<E> node : current.children) {
-//    				
-//        			toTraverse.push(node); 
-//    			}
-////    			toTraverse.push(current);
-//    		}else {
-//    			
-//    			result.add(current.value);
-//    		}
+//    		for (Tree<E> tree : current.children) {
+//				 toTraverse.push(tree); 
+//			}
 //    		
 //    		
-//    	}while(!toTraverse.isEmpty());
+//    		result.add(current.value); 
+//
+//    	};
 //    	
 //    	
 //        return result;
@@ -175,6 +171,8 @@ public class Tree<E> implements AbstractTree<E> {
 		nodeToBeRemoved.children.clear();
 
 		Tree<E> parent = nodeToBeRemoved.parent;
+		
+		// if Node is not Root
 		if(parent != null) {
 //			for (int i = 0; i < parent.children.size(); i++) {
 //				if (parent.children.get(i).equals(nodeToBeRemoved)) {
