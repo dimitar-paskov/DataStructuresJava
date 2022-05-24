@@ -99,19 +99,36 @@ private List<E> elements;
 	private void heapifyDown(int index) {
 		
 		
-		while(getLeftChildIndex(index) < this.size()  &&  isLess(index, getLeftChildIndex(index))) {
+//		while(getLeftChildIndex(index) < this.size()  &&  isLess(index, getLeftChildIndex(index))) {
+//			
+//			int child = getLeftChildIndex(index);
+//			
+//			 int rightChildIndex = getRightChildIndex(index);
+//			 
+//			 if(rightChildIndex < this.size()  &&  isLess(child, rightChildIndex)) {
+//				 child = rightChildIndex;
+//			 }
+//			
+//			Collections.swap(this.elements, child, index); 
+//			index = child;
+//			
+//		}
+		
+		
+		while(index < this.elements.size()/2) {
 			
-			int child = getLeftChildIndex(index);
+			int child = 2*index + 1;
 			
-			 int rightChildIndex = getRightChildIndex(index);
-			 
-			 if(rightChildIndex < this.size()  &&  isLess(child, rightChildIndex)) {
-				 child = rightChildIndex;
-			 }
+			if(child + 1 < this.elements.size() && isLess(child, child+1)) {
+				child = child + 1;
+			}
 			
-			Collections.swap(this.elements, child, index); 
+			if(isLess(child, index)) {
+				break;
+			}
+			
+			Collections.swap(elements, index, child);
 			index = child;
-			
 		}
 		
 		
