@@ -27,4 +27,6 @@ hs_err_pid*
 *.project
 *.classpath
 *.iml
+# Lock MS Word files
+*.docx#
 
