@@ -101,6 +101,9 @@ package solutions;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
+import java.util.stream.Collectors;
 
 public class BinaryTree {
 
@@ -177,8 +180,47 @@ public class BinaryTree {
 	}
 
 	public List<Integer> topView() {
-		return null;
+		
+		Map<Integer, Pair<Integer, Integer>> offsetToValueLevel = new TreeMap<>();
+//		Map<Integer, Map<Integer,Integer>> example = new HashMap<>();
+		
+		
+		traverseTree(this,0,1, offsetToValueLevel);
+		
+//		example.entrySet().stream()
+//		.map(entry -> entry.getValue().entrySet().stream()
+//				.reduce(null))
+//		.printValue
+		
+		return offsetToValueLevel
+		.values()
+		.stream()
+		.map(Pair::getKey)
+		.collect(Collectors.toList());
+		
 	}
+
+	private void traverseTree(BinaryTree binaryTree, int offset, int level,
+			Map<Integer, Pair<Integer, Integer>> offsetToValueLevel) { 
+	
+		if(binaryTree == null) {
+			return;
+		}
+		
+		
+		Pair<Integer, Integer> currentValueLevel = offsetToValueLevel.get(offset);
+		
+		if(currentValueLevel == null || level < currentValueLevel.getValue()) {
+			offsetToValueLevel.put(offset, new Pair<>(binaryTree.value, level));
+		}
+		
+		
+		traverseTree(binaryTree.left, offset-1, level+1, offsetToValueLevel);
+		traverseTree(binaryTree.right, offset+1, level+1, offsetToValueLevel);
+		
+	}
+
+
 }
 
 

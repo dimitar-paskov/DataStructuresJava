@@ -1,14 +1,15 @@
 package solutions;
 
-import interfaces.Heap;
-import model.Product;
-import org.junit.Before;
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import org.junit.Before;
+import org.junit.Test;
+
+import interfaces.Heap;
+import model.Product;
 
 public class MinHeapTest {
     private MinHeap<Product> minHeap;
@@ -32,6 +33,14 @@ public class MinHeapTest {
     @Test
     public void testHeapifyUpAddMany() {
         assertEquals(5, minHeap.peek().getPrice());
+    }
+    
+    @Test
+    public void testHeapifyDown() {
+    	minHeap.poll();
+        assertEquals(6, minHeap.peek().getPrice());
+        minHeap.poll();
+        assertEquals(8, minHeap.peek().getPrice());
     }
 
     @Test
