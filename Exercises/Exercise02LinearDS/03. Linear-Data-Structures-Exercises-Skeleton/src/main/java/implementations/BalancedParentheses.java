@@ -18,7 +18,7 @@ public class BalancedParentheses implements Solvable {
     	
     	boolean balanced = true;
     	
-    	if(this.parentheses.isBlank()) {
+    	if(this.parentheses == null || this.parentheses.isBlank()) {
     		return false;
     	}
     	
@@ -27,19 +27,19 @@ public class BalancedParentheses implements Solvable {
 				 stack.push(character);
 			 }else if(character.equals('}')  ) {
 				 
-				 if(!(Character.compare(stack.pop(), '{') == 0)) {
+				 if(stack.isEmpty() || stack.pop() != '{') {
 					 balanced = false;
 					 break;
 				 }
 				 
 			 }else if(character.equals(']')) {
-				 if(!(Character.compare(stack.pop(), '[') == 0)) {
+				 if(stack.isEmpty() || stack.pop() != '[') {
 					 balanced = false;
 					 break;
 				 }
 				 
 			 }else if(character.equals(')')) {
-				 if(!(Character.compare(stack.pop(), '(') == 0)) {
+				 if(stack.isEmpty() || stack.pop() != '(') {
 					 balanced = false;
 					 break;
 				 }

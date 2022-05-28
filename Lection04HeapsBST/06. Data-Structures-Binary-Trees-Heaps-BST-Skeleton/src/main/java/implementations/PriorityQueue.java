@@ -28,31 +28,7 @@ private List<E> elements;
 
     }
 
-    private void heapifyUp(int index) {
-    	
-		while(index > 0 && isLess( getParentIndex(index), index)) {
-			Collections.swap(elements, index, getParentIndex(index));
-			index = getParentIndex(index);
-		}
-		
-	}
-
-	private boolean isLess(int firstIndex, int secondIndex) {
-		
-		
-		
-		return getAt(firstIndex).compareTo(getAt(secondIndex)) < 0;
-	}
-	
-	private E getAt(int index) {
-		return this.elements.get(index); 
-	}
-
-	private int getParentIndex(int index) {
-		
-		
-		return (index -1 )/ 2;
-	}
+   
 
 	@Override
     public E peek() {
@@ -79,6 +55,33 @@ private List<E> elements;
 		
 		return returnedValue;
 	}
+	
+	
+	 private void heapifyUp(int index) {
+	    	
+			while(index > 0 && isLess( getParentIndex(index), index)) {
+				Collections.swap(elements, index, getParentIndex(index));
+				index = getParentIndex(index);
+			}
+			
+		}
+
+		private boolean isLess(int firstIndex, int secondIndex) {
+			
+			
+			
+			return getAt(firstIndex).compareTo(getAt(secondIndex)) < 0;
+		}
+		
+		private E getAt(int index) {
+			return this.elements.get(index); 
+		}
+
+		private int getParentIndex(int index) {
+			
+			
+			return (index -1 )/ 2;
+		}
 	
 	private E getLeftChild(int index) {
 		return this.elements.get(this.getLeftChildIndex(index)); 

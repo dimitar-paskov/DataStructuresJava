@@ -30,4 +30,21 @@ public class BalancedParenthesesTest {
         assertNotNull(solve);
         assertFalse(solve);
     }
+    
+    public void zeroTestNull() {
+        String input = null;
+        Boolean solve = new BalancedParentheses(input).solve();
+        assertNotNull(solve);
+        assertFalse(solve);
+    }
+    
+    @Test
+    public void zeroTestOpen() {
+        String input = "}{[(])}";
+        Boolean solve = new BalancedParentheses(input).solve();
+        assertNotNull(solve);
+        assertFalse(solve);
+    }
+    
+    
 }

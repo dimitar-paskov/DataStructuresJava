@@ -1,13 +1,7 @@
 package core;
 
-import interfaces.Entity;
-import interfaces.Repository;
-import model.BaseEntity;
-import model.Invoice;
-import model.StoreClient;
-import model.User;
-import org.junit.Before;
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -17,7 +11,15 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
-import static org.junit.Assert.*;
+import org.junit.Before;
+import org.junit.Test;
+
+import interfaces.Entity;
+import interfaces.Repository;
+import model.BaseEntity;
+import model.Invoice;
+import model.StoreClient;
+import model.User;
 
 public class DataTest {
     private Repository data;
@@ -98,6 +100,7 @@ public class DataTest {
 
         for (int i = 0; i < dataAll.size(); i++) {
             assertEquals(dataAll.get(i), copyAll.get(i));
+//            assertFalse(dataAll.get(i) == copyAll.get(i));
         }
     }
 
